@@ -1,6 +1,6 @@
 import AutocompleteInput from "react-native-autocomplete-input";
 import { TouchableOpacity, View, Text, StyleSheet, Button, Alert } from "react-native";
-import { EXERCISES } from "../data/exercises";
+import { EXERCISES } from "../data/dummy-data.js";
 import { useContext, useState } from "react";
 import { ExerciseContext } from "../contexts/exercise-context";
 import { WorkoutContext } from "../contexts/workout-context";
