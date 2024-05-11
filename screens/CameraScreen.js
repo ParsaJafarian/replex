@@ -1,8 +1,8 @@
 import { StyleSheet } from "react-native";
-// import SearchBar from "../components/SearchBar";
+import SearchBar from "../components/SearchBar";
 
 export default function CameraScreen() {
-    // <SearchBar />
+    <SearchBar />
 };
 
 const styles = StyleSheet.create({
