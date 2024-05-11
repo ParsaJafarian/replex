@@ -1,10 +1,16 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
+import CameraCard from "../components/CameraCard";
 import SearchBar from "../components/SearchBar";
 
 export default function CameraScreen() {
-    <SearchBar />
+    return <View style={styles.container}>
+        <SearchBar />
+        <CameraCard />
+    </View>
 };
 
 const styles = StyleSheet.create({
-    
+    container: {
+        flex: 1,
+    }
 });
