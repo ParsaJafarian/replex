@@ -1,24 +1,22 @@
+import { Camera, CameraType } from 'expo-camera';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import  { Camera, CameraType } from 'expo-camera';
 import CameraFooter from './CameraFooter';
 import CameraHeader from './CameraHeader';
-import { useState } from 'react';
+import { ExerciseContext } from '../contexts/exercise-context';
+import { EXERCISES } from '../data/exercises';
 
 export default function CameraCard() {
     const [type, setType] = useState(CameraType.back);
-    const [permission, requestPermission] = Camera.useCameraPermissions();
 
-    if (!permission) {
-        // Camera permissions are still loading
-        return <View />;
-    }
+    const exerciseContext = useContext(ExerciseContext);
+    const getExercise = (id) => EXERCISES.find(exercise => exercise.id === id);
+    const exercise = getExercise(exerciseContext.id);
 
-    if (!permission.granted) {
-        // Camera permissions are not granted yet
+    if (!exercise) {
         return (
             <View style={styles.container}>
-                <Text style={{ textAlign: 'center' }}>We need your permission to show the camera</Text>
-                <Button onPress={requestPermission} title="grant permission" />
+                <Text style={{ textAlign: 'center' }}>Please select an exercise</Text>
             </View>
         );
     }
@@ -29,7 +27,7 @@ export default function CameraCard() {
 
     return (
         <View style={styles.container}>
-            <CameraHeader exerciseName="Bicep Curls" />
+            <CameraHeader exerciseName={exercise.name} />
             <Camera style={styles.camera} type={type}>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
@@ -48,13 +46,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     camera: {
-        height: "50%",
+        height: "70%",
     },
     buttonContainer: {
         flex: 1,
         flexDirection: 'row',
         backgroundColor: 'transparent',
-        margin: 64,
     },
     button: {
         flex: 1,
@@ -67,3 +64,4 @@ const styles = StyleSheet.create({
         color: 'white',
     }
 });
+

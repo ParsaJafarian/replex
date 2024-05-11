@@ -1,34 +1,22 @@
 import { StyleSheet, View, Button } from "react-native";
 import ValueCard from "./ValueCard";
-import { useState } from "react";
+import { useContext } from "react";
+import { ExerciseContext } from "../contexts/exercise-context";
 
 export default function CameraFooter() {
-    const [reps, setReps] = useState(0);
-    const [sets, setSets] = useState(1);
-    const [confidence, setConfidence] = useState(0);
-
-    function resetHandler(){
-        setReps(0);
-        setSets(1);
-        setConfidence(0);
-    }
-
-    function addSetHandler(){
-        setSets(current => current + 1);
-        setReps(0);
-        setConfidence(0);
-    }
+    const exerciseContext = useContext(ExerciseContext);
 
     return (
         <View style={styles.container}>
             <View style={styles.footer}>
-                <ValueCard title="Reps" value={reps} />
-                <ValueCard title="Sets" value={sets} />
-                <ValueCard title="Confidence" value={confidence} />
+                <ValueCard title="Reps" value={exerciseContext.numReps} />
+                <ValueCard title="Sets" value={exerciseContext.numSets} />
+                <ValueCard title="Confidence" value={0} />
             </View>
-            <View style={styles.buttons}>
-                <Button title="Reset" onPress={resetHandler}/>
-                <Button title="Add Set" onPress={addSetHandler}/>
+            <View style={styles.footer}>
+                <Button title="Add Rep" onPress={exerciseContext.addRep} />
+                <Button title="Add Set" onPress={exerciseContext.addSet} />
+                <Button title="Reset" onPress={exerciseContext.resetExercise} />
             </View>
         </View>
     )
@@ -40,9 +28,7 @@ const styles = StyleSheet.create({
     },
     footer: {
         flexDirection: 'row',
-    },
-    buttons: {
-        flexDirection: 'row',
         justifyContent: 'space-around',
+        alignItems: 'center',
     }
 });

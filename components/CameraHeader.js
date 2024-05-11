@@ -1,11 +1,14 @@
 import { View, Text, StyleSheet } from "react-native";
+import colors from "../util/colors";
+import AddExerciseButton from "./AddExerciseButton";
 
-export default function CameraHeader({exerciseName}) {
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>{exerciseName}</Text>
-        </View>
-    )
+export default function CameraHeader({ exerciseName }) {
+    return <View style={styles.container}>
+        <Text style={styles.title}>
+            {exerciseName}
+        </Text>
+        <AddExerciseButton />
+    </View>
 };
 
 const styles = StyleSheet.create({
@@ -13,11 +16,12 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         borderBottomWidth: 1,
         backgroundColor: 'white',
-        borderColor: 'orange',
+        borderColor: colors.primary,
         padding: 10,
+        flexDirection: 'row',
     },
     title: {
-        color: 'orange',
-        fontSize: 20,
+        color: colors.primary,
+        fontSize: 24,
     },
 });
