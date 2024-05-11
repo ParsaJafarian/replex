@@ -1,10 +1,11 @@
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer } from '@react-navigation/native';
 import CameraScreen from './screens/CameraScreen';
 import WorkoutScreen from './screens/WorkoutScreen';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
+import WorkoutContextProvider from './contexts/workout-context';
 import colors from './util/colors';
+import { Ionicons } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,15 +27,17 @@ const defaultOptions = {
 export default function App() {
   return <>
     <StatusBar style="light" />
-    <NavigationContainer>
-      <Tab.Navigator screenOptions={defaultOptions}>
-        <Tab.Screen name="Camera" component={CameraScreen} options={{
-          tabBarIcon: ({ color }) => <Ionicons name="camera" size={30} color={color} />
-        }} />
-        <Tab.Screen name="Workout" component={WorkoutScreen} options={{
-          tabBarIcon: ({ color }) => <Ionicons name="barbell" size={30} color={color} />
-        }} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <WorkoutContextProvider>
+      <NavigationContainer>
+        <Tab.Navigator screenOptions={defaultOptions}>
+          <Tab.Screen name="Camera" component={CameraScreen} options={{
+            tabBarIcon: ({ color }) => <Ionicons name="camera" size={30} color={color} />
+          }}/>
+          <Tab.Screen name="Workout" component={WorkoutScreen} options={{
+            tabBarIcon: ({ color }) => <Ionicons name="barbell" size={30} color={color} />
+          }} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </WorkoutContextProvider>
   </>
 }
