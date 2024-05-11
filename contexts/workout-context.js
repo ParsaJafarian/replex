@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const WorkoutContext = createContext({
     workouts: [], // All workouts, loaded from memory
     selectedWorkout: {}, // Workout user has selected from SearchWorkout
+    setSelectedWorkout: () => { }, // Setter for selected workout, used in SearchWorkout
     workout: [], // Curent workout progress 
     addWorkout: () => { },
     addExercise: () => { },
@@ -38,14 +39,12 @@ export default function WorkoutContextProvider({ children }) {
     }
 
     const load = async () => {
-        console.log("attempting to load data");
+        console.log("Loading workouts from memory...");
         try {
             let oldWorkouts = await AsyncStorage.getItem('workouts');
             if (oldWorkouts !== null) {
                 setWorkouts(JSON.parse(oldWorkouts));
                 console.log(JSON.parse(oldWorkouts));
-            } else {
-                console.log("no data");
             }
         } catch (err) {
             alert(e);
@@ -59,6 +58,7 @@ export default function WorkoutContextProvider({ children }) {
     const value = {
         workouts,
         selectedWorkout,
+        setSelectedWorkout,
         workout,
         addExercise,
         updateExercise,

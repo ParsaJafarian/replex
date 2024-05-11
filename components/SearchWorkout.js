@@ -3,11 +3,13 @@ import { useContext, useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import AutocompleteInput from "react-native-autocomplete-input";
 import { WorkoutContext } from "../contexts/workout-context";
+import { ExerciseContext } from "../contexts/exercise-context";
 
 
 export default function SearchWorkout() {
 
     const workoutContext = useContext(WorkoutContext);
+    const exerciseContext = useContext(ExerciseContext);
 
     const [filtered, setFiltered] = useState([]); // Filtered drop down workouts the match query
     const [query, setQuery] = useState('');
@@ -19,10 +21,21 @@ export default function SearchWorkout() {
     }
 
     function changeTextHandler(query) {
-        console.log(workoutContext.workouts);
         setQuery(query);
         // console.log(filterData(query));
         setFiltered(filterData(query));
+    }
+
+    function selectWorkout(item) {
+        // An item is a {} workout
+        console.log(item)
+        setQuery(item.name);
+        workoutContext.setSelectedWorkout(item);
+        console.log(workoutContext.selectedWorkout);
+        exerciseContext.setExerciseId(JSON.parse(item.exercises)[0].id);
+        console.log("exercises: " + item.exercises);
+        console.log("exercises id: " + JSON.parse(item.exercises)[0].id);
+        console.log("\n\n");
     }
 
     return (
@@ -36,7 +49,7 @@ export default function SearchWorkout() {
                     keyboardShouldPersistTaps: 'always',
                     keyExtractor: item => item.id,
                     renderItem: ({ item }) => (
-                        <TouchableOpacity onPress={() => {}}>
+                        <TouchableOpacity onPress={() => {selectWorkout(item)}}>
                             <Text>{item.name}</Text>
                         </TouchableOpacity>
                     ),
