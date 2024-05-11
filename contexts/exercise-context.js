@@ -22,8 +22,9 @@ export default function ExerciseContextProvider({ children }) {
 
     function setExerciseId(id) {
         setId(id);
-        setNumReps(0);
+        setSets([]);
         setNumSets(1);
+        setNumReps(0);
     }
 
     function updateSets(newSets) {
