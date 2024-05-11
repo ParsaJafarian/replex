@@ -1,4 +1,6 @@
-export default EXERCISES = [
+import Exercise from "../models/Exercise";
+
+export const EXERCISES = [
     new Exercise('e1', 'Pushups'),
     new Exercise('e2', 'Bench Press'),
     new Exercise('e3', 'Chest Fly'),
