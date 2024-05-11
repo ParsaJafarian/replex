@@ -3,7 +3,6 @@ import CameraScreen from './screens/CameraScreen';
 import WorkoutScreen from './screens/WorkoutScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
 import colors from './util/colors';
 
