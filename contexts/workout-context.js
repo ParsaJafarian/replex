@@ -1,7 +1,11 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const WorkoutContext = createContext({
-    workout: [],
+    workouts: [], // All workouts, loaded from memory
+    selectedWorkout: {}, // Workout user has selected from SearchWorkout
+    workout: [], // Curent workout progress 
+    addWorkout: () => { },
     addExercise: () => { },
     updateExercise: () => { },
     resetWorkout: () => { },
@@ -9,13 +13,14 @@ export const WorkoutContext = createContext({
 })
 
 export default function WorkoutContextProvider({ children }) {
+    const [workouts, setWorkouts] = useState([]);
+    const [selectedWorkout, setSelectedWorkout] = useState({});
     const [workout, setWorkout] = useState([]);
 
     function addExercise(exercise){
         setWorkout([...workout, exercise]);
     }
     const resetWorkout = () => setWorkout([]);
-
 
     function updateExercise(id, sets) {
         const exercise = workout.find((exercise) => exercise.id === id);
@@ -32,7 +37,28 @@ export default function WorkoutContextProvider({ children }) {
         setWorkout(updatedWorkout);
     }
 
+    const load = async () => {
+        console.log("attempting to load data");
+        try {
+            let oldWorkouts = await AsyncStorage.getItem('workouts');
+            if (oldWorkouts !== null) {
+                setWorkouts(JSON.parse(oldWorkouts));
+                console.log(JSON.parse(oldWorkouts));
+            } else {
+                console.log("no data");
+            }
+        } catch (err) {
+            alert(e);
+        }
+    }
+
+    useEffect(() => {
+        load();
+    }, []);
+
     const value = {
+        workouts,
+        selectedWorkout,
         workout,
         addExercise,
         updateExercise,
