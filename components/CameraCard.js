@@ -1,6 +1,6 @@
 import { Camera, CameraType } from 'expo-camera';
 import { useContext, useEffect, useRef, useState } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {  StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CameraFooter from './CameraFooter';
 import CameraHeader from './CameraHeader';
 import { ExerciseContext } from '../contexts/exercise-context';

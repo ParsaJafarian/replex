@@ -8,7 +8,7 @@ import { WorkoutContext } from "../contexts/workout-context";
 export default function SearchBar() {
     const exerciseContext = useContext(ExerciseContext);
     const workoutContext = useContext(WorkoutContext);
-    const [exercises, setExercises] = useState([]); // [EXERCISES
+    const [exercises, setExercises] = useState([]);
     const [query, setQuery] = useState('');
 
     const workout = workoutContext.workout;
