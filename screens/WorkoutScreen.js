@@ -20,6 +20,7 @@ export default function WorkoutScreen({ navigation }) {
     const [customWorkout, setCustomWorkout] = useState([]);
     // For one exercise
     const [query, setQuery] = useState(''); // Name of exercise
+    const [id, setId] = useState(''); // ID of exercise
     const [reps, setReps] = useState('');
     const [sets, setSets] = useState([]);
 
@@ -59,7 +60,7 @@ export default function WorkoutScreen({ navigation }) {
     function addExercise() {
         const exercise = {
             exercise: query,
-            id: uuid.v4(),
+            id,
             sets,
         }
         console.log(exercise)
@@ -67,6 +68,7 @@ export default function WorkoutScreen({ navigation }) {
         setQuery('');
         setReps('');
         setSets([]);
+        setId('');
 
         // Add to workout
         setCustomWorkout([...customWorkout, exercise])
@@ -122,7 +124,7 @@ export default function WorkoutScreen({ navigation }) {
                         value={workoutName} 
                         onChangeText={setWorkoutName} 
                     />
-                    <SearchExercise query={query} setQuery={setQuery} />
+                    <SearchExercise query={query} setQuery={setQuery} setId={setId} />
                     <View style={styles.inputContainer}>
                         <TextInput
                             style={styles.halfInput}
