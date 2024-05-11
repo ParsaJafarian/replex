@@ -3,7 +3,6 @@ import CameraScreen from './screens/CameraScreen';
 import WorkoutScreen from './screens/WorkoutScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { StatusBar } from 'expo-status-bar';
 
 const Tab = createBottomTabNavigator();
 
