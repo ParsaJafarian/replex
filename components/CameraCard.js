@@ -1,33 +1,35 @@
-import { Camera, CameraType } from 'expo-camera';
-import { useContext, useEffect, useRef, useState } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useContext } from 'react';
+import {  StyleSheet, Text, View } from 'react-native';
 import CameraFooter from './CameraFooter';
 import CameraHeader from './CameraHeader';
-import { ExerciseContext } from '../contexts/exercise-context';
-import { EXERCISES } from '../data/exercises';
-import '@tensorflow/tfjs-react-native';
 import PoseCamera from './ai/PoseCamera';
+import { WorkoutContext } from '../contexts/workout-context';
+
+const createWorkoutMessage = "Please create a workout to start";
+const selectWorkoutMessage = "Please select a workout to start";
 
 export default function CameraCard() {
-    const [type, setType] = useState(CameraType.back);
+    const workoutContext = useContext(WorkoutContext);
+    const currentWorkout = workoutContext.workout;
+    const workouts = workoutContext.workouts;
+    const firstExercise = currentWorkout[0];
 
-    const exerciseContext = useContext(ExerciseContext);
-    const getExercise = (id) => EXERCISES.find(exercise => exercise.id === id);
-    const exercise = getExercise(exerciseContext.id);
-
-    if (!exercise) {
+    if (!currentWorkout || workouts.length === 0) {
+        const message = workouts.length === 0 ? createWorkoutMessage : selectWorkoutMessage;
         return (
             <View style={styles.container}>
-                <Text style={{ textAlign: 'center' }}>Please select an exercise</Text>
+                <Text style={styles.title}>
+                    {message}
+                </Text>
             </View>
         );
     }
 
     return (
         <View style={styles.container}>
-            <CameraHeader exerciseName={exercise.name} />
-            <PoseCamera type={type} />
-            <CameraFooter exerciseName={exercise.name} />
+            <CameraHeader exerciseName={firstExercise.name} />
+            <PoseCamera/>
+            <CameraFooter exerciseName={firstExercise.name} />
         </View>
     );
 };
@@ -37,23 +39,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
     },
-    camera: {
-        height: "70%",
-    },
-    buttonContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        backgroundColor: 'transparent',
-    },
-    button: {
-        flex: 1,
-        alignSelf: 'flex-end',
-        alignItems: 'center',
-    },
-    text: {
+    title: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: 'white',
-    }
+        textAlign: 'center',
+    },
 });
 
