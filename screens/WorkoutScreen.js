@@ -8,6 +8,7 @@ import {
   Button,
   Alert,
   TextInput,
+  TouchableOpacity,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { WorkoutContext } from "../contexts/workout-context";
@@ -134,6 +135,14 @@ export default function WorkoutScreen({ navigation }) {
     }
   };
 
+  function renderWorkoutItem({ item }) {
+    return (
+        <TouchableOpacity style={styles.listItem}>
+            <Text>{item.name}</Text>
+        </TouchableOpacity>
+    )
+  }
+
   return creating ? (
     <View style={styles.container}>
       <Button
@@ -181,11 +190,18 @@ export default function WorkoutScreen({ navigation }) {
       />
     </View>
   ) : (
-    <View>
+    <View style={styles.container}>
       <Button
         title="Create workout"
+        style={styles.container}
         onPress={() => setCreating(creating === false ? true : false)}
       />
+      <Text style={styles.text}>Workouts</Text>
+      <FlatList
+        data={workoutContext.workouts} 
+        keyExtractor={(item) => item.id}
+        renderItem={renderWorkoutItem}
+    />
       <FlatList
         data={workout}
         keyExtractor={(item) => item.id}
@@ -197,8 +213,22 @@ export default function WorkoutScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 30,
-    paddingTop: 20,
+    paddingHorizontal: 40,
+    paddingTop: 30,
+  },
+  text: {
+    marginTop: 20,
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  listItem: {
+    marginTop: 20,
+    height: 40,
+    backgroundColor: 'white',
+    borderRadius: 6,
+    paddingHorizontal: 20,
+    paddingVertical: 8,
+    elevation: 1, // This is for Android
   },
   excercise: {
     flexDirection: "row",
@@ -234,5 +264,6 @@ const styles = StyleSheet.create({
   },
   btn: {
     marginTop: 20,
+    borderRadius: 10,
   },
 });
