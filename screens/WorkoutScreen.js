@@ -145,14 +145,14 @@ export default function WorkoutScreen({ navigation }) {
       </Pressable>
       <SafeAreaView style={{ margin: 0, padding: 0, width: "100%" }}>
         <TextInput
-          style={styles.input}
+          style={[styles.input, styles.marginThing]}
           placeholder="Type workout name here..."
           placeholderTextColor={"white"}
           value={workoutName}
           onChangeText={setWorkoutName}
         />
         <SearchExercise query={query} setQuery={setQuery} setId={setId} />
-        <View style={styles.inputContainer}>
+        <View style={[styles.inputContainer]}>
           <TextInput
             style={styles.halfInput}
             placeholder="Repetitions per set"
@@ -162,7 +162,11 @@ export default function WorkoutScreen({ navigation }) {
             onChangeText={setReps}
           />
           <Pressable
-            style={[styles.button, styles.buttonBetween]}
+            style={[
+              styles.button,
+              styles.buttonBetween,
+              { marginVertical: 8, marginLeft: 8 },
+            ]}
             onPress={addSet}
           >
             <Text
@@ -177,7 +181,7 @@ export default function WorkoutScreen({ navigation }) {
           </Pressable>
         </View>
         <Pressable
-          style={[styles.button, styles.buttonBetween]}
+          style={[styles.button, styles.buttonBetween, styles.marginThing]}
           onPress={addExercise}
         >
           <Text style={[styles.buttonText, styles.buttonTextBetween]}>
@@ -185,7 +189,7 @@ export default function WorkoutScreen({ navigation }) {
           </Text>
         </Pressable>
         <Pressable
-          style={[styles.button, styles.buttonFilled]}
+          style={[styles.button, styles.buttonFilled, styles.marginThing]}
           onPress={saveWorkout}
         >
           <Text style={[styles.buttonText, styles.buttonTextFilled]}>
@@ -193,7 +197,7 @@ export default function WorkoutScreen({ navigation }) {
           </Text>
         </Pressable>
         <Pressable
-          style={[styles.button, styles.buttonOutline]}
+          style={[styles.button, styles.buttonOutline, styles.marginThing]}
           onPress={clearWorkouts}
         >
           <Text style={[styles.buttonText, styles.buttonTextOutline]}>
@@ -222,10 +226,6 @@ export default function WorkoutScreen({ navigation }) {
           Create workout
         </Text>
       </Pressable>
-      {/* <Button
-        title="Create workout"
-        onPress={() => setCreating(creating === false ? true : false)}
-      /> */}
       <Text style={styles.text}>Workouts</Text>
       <FlatList
         data={workoutContext.workouts}
@@ -260,8 +260,10 @@ const styles = StyleSheet.create({
     color: colors.purple,
   },
 
+  marginThing: {
+    marginTop: 20,
+  },
   button: {
-    margin: 8,
     padding: 8,
     borderRadius: 6,
   },
