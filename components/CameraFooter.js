@@ -10,11 +10,11 @@ export default function CameraFooter({ exerciseName }) {
         <View style={styles.container}>
             <View style={styles.footer}>
                 <ValueCard title="Exercise" value={exerciseName} />
-                <ValueCard title="Reps" value={exerciseContext.numReps} />
-                <ValueCard title="Sets" value={exerciseContext.numSets} />
+                <ValueCard title="Reps" value={exerciseContext.getImpReps()} />
+                <ValueCard title="Sets" value={exerciseContext.sets.length} />
             </View>
             <View style={styles.footer}>
-                <Button title="Add Rep" onPress={exerciseContext.addRep} />
+                <Button title="Did Rep" onPress={exerciseContext.doRep} />
                 <Button title="Reset" onPress={exerciseContext.resetExercise} />
                 {/* <Button title="Add Set" onPress={exerciseContext.addSet} /> */}
                 <Button title="Add Set" onPress={exerciseContext.addSet} />

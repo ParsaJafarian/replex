@@ -1,25 +1,49 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ExerciseContext } from "../contexts/exercise-context";
 
 export const WorkoutContext = createContext({
     load: () => { },
     workouts: [], // All workouts, loaded from memory
     selectedWorkout: {}, // Workout user has selected from SearchWorkout
     setSelectedWorkout: () => { }, // Setter for selected workout, used in SearchWorkout
-    workout: [], // Curent workout progress 
+    workout: [], // Curent workout progress
+    exerciseIdx: 0,
+    setExerciseIdx: () => { },
     addWorkout: () => { },
     addExercise: () => { },
     updateExercise: () => { },
     resetWorkout: () => { },
-    removeExercise: () => { }
+    removeExercise: () => { },
+    updateStatus: () => { }
 })
 
 export default function WorkoutContextProvider({ children }) {
     const [workouts, setWorkouts] = useState([]);
     const [selectedWorkout, setSelectedWorkout] = useState({});
     const [workout, setWorkout] = useState([]);
+    const [exerciseIdx, setExerciseIdx] = useState(0); // Index of exercise within the selected workout 
+    const exerciseContext = useContext(ExerciseContext);
 
-    function addExercise(exercise){
+    function updateStatus() {
+        const listOfEx = JSON.parse(selectedWorkout["exercises"]);
+        console.log(listOfEx.length)
+        console.log(exerciseIdx + 1)
+        if (exerciseIdx + 1 >= listOfEx.length) {
+            console.log("WORKOUT COMPLETED, WOW!");
+        } else {
+            
+            console.log(selectedWorkout);
+            
+            const nextEx = listOfEx[exerciseIdx + 1];
+            console.log(nextEx)
+            exerciseContext.setExerciseId(nextEx.id);
+            exerciseContext.setSets(nextEx.sets);
+            setExerciseIdx(prev=>prev + 1);
+        }
+    }
+
+    function addExercise(exercise) {
         setWorkout([...workout, exercise]);
     }
     const resetWorkout = () => setWorkout([]);
@@ -62,10 +86,12 @@ export default function WorkoutContextProvider({ children }) {
         selectedWorkout,
         setSelectedWorkout,
         workout,
+        setExerciseIdx,
         addExercise,
         updateExercise,
         resetWorkout,
-        removeExercise
+        removeExercise,
+        updateStatus
     };
 
     return <WorkoutContext.Provider value={value}>

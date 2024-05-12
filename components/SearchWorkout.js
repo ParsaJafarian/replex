@@ -28,11 +28,22 @@ export default function SearchWorkout() {
 
     function selectWorkout(item) {
         // An item is a {} workout
-        // console.log(item)
         setQuery(item.name);
         workoutContext.setSelectedWorkout(item);
+        workoutContext.setExerciseIdx(0);
+        
+        console.log(item)
+        console.log(workoutContext.selectedWorkout);
+
+        const firstEx = JSON.parse(item["exercises"])[0];
+
+        exerciseContext.setExerciseId(firstEx.id);
+        exerciseContext.setSets(firstEx.sets);
+
+
+        // Load initial exercises
         // exerciseContext.setExerciseId(JSON.parse(item.exercises)[0].id);
-        exerciseContext.setExerciseInd(0);
+
     }
 
     return (
