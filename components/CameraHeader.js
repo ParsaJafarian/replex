@@ -7,7 +7,6 @@ export default function CameraHeader({ exerciseName }) {
         <Text style={styles.title}>
             {exerciseName}
         </Text>
-        <AddExerciseButton />
     </View>
 };
 

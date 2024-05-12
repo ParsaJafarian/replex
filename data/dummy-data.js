@@ -10,14 +10,9 @@ export const BODYGROUPS = [
 
 export const EXERCISES = [
     new Exercise('e1', 'bg1', 'Pushups'),
-    new Exercise('e2', 'bg1', 'Bench Press'),
-    new Exercise('e3', 'bg1', 'Chest Fly'),
-    new Exercise('e4', 'bg2', 'Pullups'),
-    new Exercise('e5', 'bg2', 'Deadlift'),
-    new Exercise('e6', 'bg2', 'Bent Over Row'),
-    new Exercise('e7', 'bg3', 'Plank'),
-    new Exercise('e8', 'bg3', 'Russian Twist'),
-    new Exercise('e9', 'bg3', 'Leg Raise'),
+    new Exercise('e2', 'bg3', 'Leg Raise'),
+    new Exercise('e3', 'bg3', 'Squats'),
+    new Exercise('e4', 'bg3', 'Crunches'),
     // new Exercise('e10', 'bg4', 'Squat'),
     // new Exercise('e11', 'bg4', 'Lunges'),
     // new Exercise('e12', 'bg4', 'Leg Press'),

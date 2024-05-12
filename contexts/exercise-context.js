@@ -1,12 +1,14 @@
 import { createContext, useContext, useState } from "react";
 import { WorkoutContext } from "./workout-context";
 import { Alert } from "react-native";
+import findExercise from "../util/findExercise";
 
 export const ExerciseContext = createContext({
     id: '',
     sets: [],
     numSets: 1,
     numReps: 0,
+    name: "",
     setExerciseId: () => { },
     resetExercise: () => { },
     addSet: () => { },
@@ -15,16 +17,17 @@ export const ExerciseContext = createContext({
 
 export default function ExerciseContextProvider({ children }) {
     const [id, setId] = useState('');
+    const [name, setName] = useState('');
     const [sets, setSets] = useState([]);
     const [numSets, setNumSets] = useState(1);
     const [numReps, setNumReps] = useState(0);
     const workoutContext = useContext(WorkoutContext);
 
-    function setExerciseId(id) {
-        setId(id);
-        setSets([]);
-        setNumSets(1);
+    function setExerciseId(_id) {
+        setId(_id);
+        setName(findExercise(_id).name);
         setNumReps(0);
+        setNumSets(1);
     }
 
     function updateSets(newSets) {
@@ -57,6 +60,7 @@ export default function ExerciseContextProvider({ children }) {
 
     const value = {
         id,
+        name,
         sets,
         numSets,
         numReps,

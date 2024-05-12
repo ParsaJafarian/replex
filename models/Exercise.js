@@ -1,9 +1,7 @@
 export default class Exercise {
     //@TODO add AI model attribute
-    constructor(id, bodyGroupId, name, imageUrl) {
+    constructor(id, name) {
         this.id = id;
-        this.bodyGroupId = bodyGroupId;
         this.name = name;
-        this.image = imageUrl;
     }
 }

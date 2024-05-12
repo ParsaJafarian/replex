@@ -1,5 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
+
 //Component for footer values
+
 export default function ValueCard({ title, value }) {
     return (
         <View style={styles.container}>
