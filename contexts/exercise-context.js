@@ -66,16 +66,28 @@ export default function ExerciseContextProvider({ children }) {
     }
 
     function doRep() {
-        console.log(getImpReps());
-        console.log(sets.length)
         if (sets.length === 0) return
         if (sets[0] === 0) return;
 
         let newRepSet = sets[0] - 1;
         if (newRepSet === 0) {
             if (sets.length === 1) {
-                workoutContext.updateStatus();
-            }else{
+                // workoutContext.updateStatus();
+
+                const listOfEx = JSON.parse(workoutContext.selectedWorkout["exercises"]);
+                if (workoutContext.exerciseIdx + 1 >= listOfEx.length) {
+                    // console.log("WORKOUT COMPLETED, WOW!");
+                    alert("You completed your workout!")
+                } else {
+                    console.log(workoutContext.selectedWorkout);
+                    console.log(workoutContext.exerciseIdx + 1)
+                    const nextEx = listOfEx[workoutContext.exerciseIdx + 1];
+                    console.log(nextEx)
+                    setExerciseId(nextEx.id);
+                    setSets(nextEx.sets);
+                    workoutContext.setExerciseIdx(prev => prev + 1);
+                }
+            } else {
                 setSets(sets.slice(1))
             }
         } else {

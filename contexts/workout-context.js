@@ -27,12 +27,9 @@ export default function WorkoutContextProvider({ children }) {
 
     function updateStatus() {
         const listOfEx = JSON.parse(selectedWorkout["exercises"]);
-        console.log(listOfEx.length)
-        console.log(exerciseIdx + 1)
         if (exerciseIdx + 1 >= listOfEx.length) {
             console.log("WORKOUT COMPLETED, WOW!");
         } else {
-            
             console.log(selectedWorkout);
             
             const nextEx = listOfEx[exerciseIdx + 1];
@@ -86,6 +83,7 @@ export default function WorkoutContextProvider({ children }) {
         selectedWorkout,
         setSelectedWorkout,
         workout,
+        exerciseIdx,
         setExerciseIdx,
         addExercise,
         updateExercise,
