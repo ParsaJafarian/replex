@@ -46,6 +46,17 @@ export default function PoseCamera() {
   let frameCount = 0;
   const makePredictionsEveryNFrames = 1;
 
+
+  // componentDidMount() {
+  //   const { navigation } = this.props;
+  //   navigation.addListener('willFocus', () =>
+  //     this.setState({ focusedScreen: true })
+  //   );
+  //   navigation.addListener('willBlur', () =>
+  //     this.setState({ focusedScreen: false })
+  //   );
+  // }
+
   useEffect(() => {
     setForceUpdate((prev) => !prev); // Update the state variable to force re-render
     console.log(exerciseContext.name);
@@ -241,7 +252,7 @@ export default function PoseCamera() {
     }
   }
 
-  if (!permission) {
+  if (!permission || !isFocused) {
     return <View />;
   }
 
