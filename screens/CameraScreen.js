@@ -1,6 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import CameraCard from "../components/CameraCard";
-import SearchBar from "../components/SearchBar";
+import CameraCard from "../components/camera/CameraCard";
 import ExerciseContextProvider from "../contexts/exercise-context";
 import SearchWorkout from "../components/SearchWorkout";
 import colors from "../util/colors";

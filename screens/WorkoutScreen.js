@@ -6,7 +6,6 @@ import {
   View,
   StyleSheet,
   Button,
-  Alert,
   TextInput,
   TouchableOpacity,
   Pressable,
@@ -16,7 +15,7 @@ import { WorkoutContext } from "../contexts/workout-context";
 import { ExerciseContext } from "../contexts/exercise-context";
 import uuid from "react-native-uuid";
 import ShareButton from "../components/ShareButton";
-import SearchExercise from "../components/SearchExercise";
+import SearchExercise from "../components/search/SearchExercise";
 
 export default function WorkoutScreen({ navigation }) {
   const workoutContext = useContext(WorkoutContext);

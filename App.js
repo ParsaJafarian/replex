@@ -1,12 +1,12 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import CameraScreen from "./screens/CameraScreen";
-import WorkoutScreen from "./screens/WorkoutScreen";
-import WorkoutContextProvider from "./contexts/workout-context";
-import colors from "./util/colors";
-import { Ionicons } from "@expo/vector-icons";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer } from '@react-navigation/native';
+import CameraScreen from './screens/CameraScreen';
+import WorkoutScreen from './screens/WorkoutScreen';
+import WorkoutContextProvider from './contexts/workout-context';
+import colors from './util/colors';
+import { Ionicons } from '@expo/vector-icons';
+import HomeScreen from './screens/HomeScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -36,21 +36,24 @@ export default function App() {
       <WorkoutContextProvider>
         <NavigationContainer>
           <Tab.Navigator screenOptions={defaultOptions}>
-            <Tab.Screen
-              name="Camera"
-              component={CameraScreen}
-              options={{
-                tabBarIcon: ({ color }) => (
-                  <Ionicons name="camera" size={30} color={color} />
-                ),
-              }}
-            />
+            <Tab.Screen name="Home" component={HomeScreen} options={{
+              tabBarIcon: ({ color }) => <Ionicons name="home" size={30} color={color} />,
+            }} />
             <Tab.Screen
               name="Workout"
               component={WorkoutScreen}
               options={{
                 tabBarIcon: ({ color }) => (
                   <Ionicons name="barbell" size={30} color={color} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Camera"
+              component={CameraScreen}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <Ionicons name="camera" size={30} color={color} />
                 ),
               }}
             />
