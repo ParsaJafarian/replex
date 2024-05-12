@@ -7,24 +7,43 @@ export const ExerciseContext = createContext({
     sets: [],
     numSets: 1,
     numReps: 0,
+    setExerciseIndex: () => { },
     setExerciseId: () => { },
     resetExercise: () => { },
+    setSets: () => { },
+    setNumReps: () => { },
     addSet: () => { },
-    addRep: () => { }
+    doRep: () => { },
+    getImpReps: () => { }
 });
 
 export default function ExerciseContextProvider({ children }) {
     const [id, setId] = useState('');
+    const [exerciseIndex, setExerciseIndex] = useState(0); // Index of exercise within the selected workout 
     const [sets, setSets] = useState([]);
+    const [setsLeft, setSetsLeft] = useState([]);
     const [numSets, setNumSets] = useState(1);
     const [numReps, setNumReps] = useState(0);
     const workoutContext = useContext(WorkoutContext);
 
+    function setExerciseInd(num) {
+        setExerciseIndex(num); // Set index
+
+        // console.log(workoutContext.selectedWorkout.exercises);
+        // console.log(JSON.parse(workoutContext.selectedWorkout.exercises)[num]);
+        // setId(JSON.parse(workoutContext.selectedWorkout.exercises)[num].id); // Update ID to match the index
+        // setSetsLeft(JSON.parse(workoutContext.selectedWorkout.exercises)[num].sets);
+    }
+
+    function getImpReps() {
+        if (sets.length === 0) return
+        return sets[0];
+    }
+
     function setExerciseId(id) {
         setId(id);
-        setSets([]);
-        setNumSets(1);
-        setNumReps(0);
+        // setNumReps(0);
+        // setNumSets(1);
     }
 
     function updateSets(newSets) {
@@ -46,13 +65,35 @@ export default function ExerciseContextProvider({ children }) {
         setNumReps(0);
     }
 
-    function addRep() {
-        const updatedSets = [...sets];
-        if (updatedSets.length === numSets - 1) updatedSets.push(1);
-        else updatedSets[numSets - 1] = updatedSets[numSets - 1] + 1;
+    function doRep() {
+        if (sets.length === 0) return
+        if (sets[0] === 0) return;
 
-        updateSets(updatedSets);
-        setNumReps(numReps + 1);
+        let newRepSet = sets[0] - 1;
+        if (newRepSet === 0) {
+            if (sets.length === 1) {
+                // workoutContext.updateStatus();
+
+                const listOfEx = JSON.parse(workoutContext.selectedWorkout["exercises"]);
+                if (workoutContext.exerciseIdx + 1 >= listOfEx.length) {
+                    // console.log("WORKOUT COMPLETED, WOW!");
+                    alert("You completed your workout!")
+                } else {
+                    console.log(workoutContext.selectedWorkout);
+                    console.log(workoutContext.exerciseIdx + 1)
+                    const nextEx = listOfEx[workoutContext.exerciseIdx + 1];
+                    console.log(nextEx)
+                    setExerciseId(nextEx.id);
+                    setSets(nextEx.sets);
+                    workoutContext.setExerciseIdx(prev => prev + 1);
+                }
+            } else {
+                setSets(sets.slice(1))
+            }
+        } else {
+            setSets([newRepSet, ...sets.slice(1)])
+        }
+        console.log(newRepSet, sets)
     }
 
     const value = {
@@ -60,10 +101,14 @@ export default function ExerciseContextProvider({ children }) {
         sets,
         numSets,
         numReps,
+        setExerciseIndex,
         setExerciseId,
         resetExercise,
         addSet,
-        addRep,
+        setSets,
+        setNumReps,
+        doRep,
+        getImpReps,
     }
 
     return (

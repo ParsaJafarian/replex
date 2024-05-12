@@ -27,7 +27,7 @@ export default function CameraCard() {
 
     return (
         <View style={styles.container}>
-            <CameraHeader exerciseName={exercise.name} />
+            <CameraHeader />
             <Camera style={styles.camera} type={type}>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
@@ -35,7 +35,7 @@ export default function CameraCard() {
                     </TouchableOpacity>
                 </View>
             </Camera>
-            <CameraFooter />
+            <CameraFooter exerciseName={exercise.name} />
         </View>
     );
 };

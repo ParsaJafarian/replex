@@ -3,20 +3,21 @@ import ValueCard from "./ValueCard";
 import { useContext } from "react";
 import { ExerciseContext } from "../contexts/exercise-context";
 
-export default function CameraFooter() {
+export default function CameraFooter({ exerciseName }) {
     const exerciseContext = useContext(ExerciseContext);
 
     return (
         <View style={styles.container}>
             <View style={styles.footer}>
-                <ValueCard title="Reps" value={exerciseContext.numReps} />
-                <ValueCard title="Sets" value={exerciseContext.numSets} />
-                <ValueCard title="Confidence" value={0} />
+                <ValueCard title="Exercise" value={exerciseName} />
+                <ValueCard title="Reps" value={exerciseContext.getImpReps()} />
+                <ValueCard title="Sets" value={exerciseContext.sets.length} />
             </View>
             <View style={styles.footer}>
-                <Button title="Add Rep" onPress={exerciseContext.addRep} />
-                <Button title="Add Set" onPress={exerciseContext.addSet} />
+                <Button title="Did Rep" onPress={exerciseContext.doRep} />
                 <Button title="Reset" onPress={exerciseContext.resetExercise} />
+                {/* <Button title="Add Set" onPress={exerciseContext.addSet} /> */}
+                <Button title="Add Set" onPress={exerciseContext.addSet} />
             </View>
         </View>
     )
