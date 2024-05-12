@@ -85,7 +85,7 @@ export default function PoseSvg({
   if (poses == null || poses.length === 0) {
     return (
       <View style={styles.noPose}>
-        <Text>No Pose detected</Text>
+        {/* <Text>No Pose detected</Text> */}
       </View>
     );
   }

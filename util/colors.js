@@ -1,4 +1,7 @@
 export default colors = {
-    primary: 'orange',
-    secondary: '#3399ff',
-}
+  third: "#20212C",
+  secondary: "white",
+  primary: "#272E3C",
+  fourth: "#2f384a",
+  purple: "#775FF0"
+};

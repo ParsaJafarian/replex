@@ -47,33 +47,6 @@ export default function WorkoutScreen({ navigation }) {
     }
   }
 
-  function renderExerciseItem({ item }) {
-    return (
-      <View style={styles.excercise}>
-        <View style={styles.exerciseInfo}>
-          <Text style={styles.exerciseName}>{item.name}</Text>
-          <View style={styles.setsContainer}>
-            <Text style={styles.setsTitle}>Sets:</Text>
-            {item.sets.map((set, index) => (
-              <View key={index} style={{ flexDirection: "row" }}>
-                <Text style={styles.setsText}>{set}</Text>
-                <Text style={styles.setsText}>
-                  {index < item.sets.length - 1 ? " - " : ""}
-                </Text>
-              </View>
-            ))}
-          </View>
-        </View>
-        <TouchableOpacity
-          style={styles.removeButton}
-          onPress={() => removeExerciseHandler(item.id)}
-        >
-          <Ionicons name="remove-circle" size={24} color="white" />
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
   function addSet() {
     setSets([...sets, Number.parseInt(reps)]);
   }
@@ -138,22 +111,43 @@ export default function WorkoutScreen({ navigation }) {
 
   function renderWorkoutItem({ item }) {
     return (
-        <TouchableOpacity style={styles.listItem}>
-            <Text>{item.name}</Text>
-        </TouchableOpacity>
-    )
+      <TouchableOpacity style={styles.listItem}>
+        <Text
+          style={{
+            color: "#DDE1E9",
+            fontSize: 17,
+            textAlignVertical: "center",
+          }}
+        >
+          {item.name}
+        </Text>
+      </TouchableOpacity>
+    );
   }
 
   return creating ? (
     <View style={styles.container}>
-      <Button
-        title="back"
+      <Pressable
+        style={{
+          width: "100%",
+          backgroundColor: "#775FF0",
+          paddingVertical: 15,
+          paddingHorizontal: 22,
+          borderRadius: 7,
+        }}
         onPress={() => setCreating(creating === false ? true : false)}
-      />
-      <SafeAreaView>
+      >
+        <Text
+          style={{ fontWeight: "bold", color: "white", textAlign: "center" }}
+        >
+          BACK
+        </Text>
+      </Pressable>
+      <SafeAreaView style={{ margin: 0, padding: 0, width: "100%" }}>
         <TextInput
           style={styles.input}
           placeholder="Type workout name here..."
+          placeholderTextColor={"white"}
           value={workoutName}
           onChangeText={setWorkoutName}
         />
@@ -162,86 +156,138 @@ export default function WorkoutScreen({ navigation }) {
           <TextInput
             style={styles.halfInput}
             placeholder="Repetitions per set"
+            placeholderTextColor={"white"}
             keyboardType="numeric"
             value={reps}
             onChangeText={setReps}
           />
-          <Pressable style={styles.button} onPress={addSet}>
-            <Text style={styles.text}>Add set</Text>
-            {/* <Button
-              title=
-              style={{
-                backgroundColor: "red",
-                flex: 1,
-                borderRadius: 5,
-                paddingHorizontal: 10,
-                paddingVertical: 8,
-              }}
-              onPress={addSet}
-            /> */}
+          <Pressable
+            style={[styles.button, styles.buttonBetween]}
+            onPress={addSet}
+          >
+            <Text
+              style={[
+                styles.buttonText,
+                styles.buttonTextBetween,
+                { textAlign: "center", width: 30 },
+              ]}
+            >
+              +
+            </Text>
           </Pressable>
         </View>
-        <Button title="Add exercise" style={styles.btn} onPress={addExercise} />
+        <Pressable
+          style={[styles.button, styles.buttonBetween]}
+          onPress={addExercise}
+        >
+          <Text style={[styles.buttonText, styles.buttonTextBetween]}>
+            Add exercise
+          </Text>
+        </Pressable>
+        <Pressable
+          style={[styles.button, styles.buttonFilled]}
+          onPress={saveWorkout}
+        >
+          <Text style={[styles.buttonText, styles.buttonTextFilled]}>
+            Create workout
+          </Text>
+        </Pressable>
+        <Pressable
+          style={[styles.button, styles.buttonOutline]}
+          onPress={clearWorkouts}
+        >
+          <Text style={[styles.buttonText, styles.buttonTextOutline]}>
+            Delete all workouts
+          </Text>
+        </Pressable>
       </SafeAreaView>
-      <Button
-        title="Create workout"
-        style={{ marginTop: 100 }}
-        onPress={saveWorkout}
-      />
-      <Button
-        title="Delete all workouts"
-        style={{ marginTop: 100 }}
-        onPress={clearWorkouts}
-      />
     </View>
   ) : (
     <View style={styles.container}>
-      <Button
-        title="Create workout"
-        style={styles.container}
+      <Pressable
+        style={{
+          width: "100%",
+          backgroundColor: colors.purple,
+          paddingVertical: 15,
+          paddingHorizontal: 22,
+          position: "absolute",
+          bottom: 35,
+          left: "13%",
+          borderRadius: 7,
+          zIndex: 5,
+        }}
         onPress={() => setCreating(creating === false ? true : false)}
-      />
+      >
+        <Text style={{ fontWeight: "bold", color: "white" }}>
+          Create workout
+        </Text>
+      </Pressable>
+      {/* <Button
+        title="Create workout"
+        onPress={() => setCreating(creating === false ? true : false)}
+      /> */}
       <Text style={styles.text}>Workouts</Text>
       <FlatList
-        data={workoutContext.workouts} 
+        data={workoutContext.workouts}
         keyExtractor={(item) => item.id}
         renderItem={renderWorkoutItem}
-    />
-      <FlatList
-        data={workout}
-        keyExtractor={(item) => item.id}
-        renderItem={renderExerciseItem}
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  buttonOutline: {
+    backgroundColor: "transparent",
+    borderStyle: "solid",
+    borderWidth: 2,
+    borderColor: colors.purple,
+  },
+  buttonTextOutline: {
+    color: colors.purple,
+  },
+  buttonFilled: {
+    backgroundColor: colors.purple,
+  },
+  buttonTextFilled: {
+    color: "white",
+  },
+  buttonBetween: {
+    backgroundColor: "#b9adf7",
+    fontSize: 15,
+  },
+  buttonTextBetween: {
+    color: colors.purple,
+  },
+
   button: {
-    backgroundColor: "red",
-    margin: 14,
-    padding: 10,
+    margin: 8,
+    padding: 8,
     borderRadius: 6,
   },
-  text: {
-    color: "white",
+  buttonText: {
+    fontWeight: "bold",
+    fontSize: 20,
   },
   container: {
     paddingHorizontal: 40,
     paddingTop: 30,
+    backgroundColor: colors.third,
+    height: "100%",
   },
   text: {
     marginTop: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 20,
+    color: "white",
   },
   listItem: {
     marginTop: 20,
-    height: 40,
-    backgroundColor: 'white',
+    // height: 40,
+    backgroundColor: colors.fourth,
     borderRadius: 6,
-    paddingHorizontal: 20,
-    paddingVertical: 8,
+    paddingHorizontal: 25,
+    paddingVertical: 13,
     elevation: 1, // This is for Android
   },
   excercise: {
@@ -275,9 +321,5 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 8,
-  },
-  btn: {
-    marginTop: 20,
-    borderRadius: 10,
   },
 });

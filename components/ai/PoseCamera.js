@@ -15,8 +15,6 @@ const AUTO_RENDER = true;
 
 const CAM_PREVIEW_WIDTH = roundNumber(Dimensions.get("window").width);
 const CAM_PREVIEW_HEIGHT = roundNumber(Dimensions.get("window").height * 0.65);
-// const CAM_PREVIEW_WIDTH = 244;
-// const CAM_PREVIEW_HEIGHT = 244;
 
 const MIN_KEYPOINT_SCORE = 0.3;
 const OUTPUT_TENSOR_WIDTH = roundNumber(Dimensions.get("window").width);
@@ -280,7 +278,9 @@ export default function PoseCamera() {
   if (!tfReady || !model) {
     return (
       <View style={styles.container}>
-        <Text style={{ textAlign: "center" }}>Loading TensorFlow...</Text>
+        <Text style={{ textAlign: "center", color: "white" }}>
+          Loading TensorFlow...
+        </Text>
       </View>
     );
   }
