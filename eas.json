@@ -15,8 +15,7 @@
   },
   "submit": {
     "production": {
-      "distribution": "store",
-      "image": "latest"
+      
     }
   }
 }
