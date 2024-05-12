@@ -4,18 +4,18 @@ import * as tf from '@tensorflow/tfjs-core';
 import * as poseDetection from '@tensorflow-models/pose-detection';
 import { useEffect, useRef, useState } from "react";
 import { StyleSheet, View, Text, Dimensions } from "react-native";
-import PosesSvg from "./PosesDisplay";
+import PoseSvg from "./PoseSvg";
 
 const TensorCamera = cameraWithTensors(Camera);
 
 const AUTO_RENDER = true;
 
 const CAM_PREVIEW_WIDTH = Dimensions.get('window').width;
-const CAM_PREVIEW_HEIGHT = Dimensions.get('window').height;
+const CAM_PREVIEW_HEIGHT = Dimensions.get('window').height * 0.65;
 
 const MIN_KEYPOINT_SCORE = 0.3;
-const OUTPUT_TENSOR_WIDTH = 180;
-const OUTPUT_TENSOR_HEIGHT = OUTPUT_TENSOR_WIDTH / (3 / 4);
+const OUTPUT_TENSOR_WIDTH = Dimensions.get('window').width;
+const OUTPUT_TENSOR_HEIGHT = OUTPUT_TENSOR_WIDTH * 2;
 
 export default function PoseCamera() {
     const [permission, requestPermission] = Camera.useCameraPermissions();
@@ -109,7 +109,7 @@ export default function PoseCamera() {
             autorender={AUTO_RENDER}
             ref={cameraRef}
         />
-        <PosesSvg
+        <PoseSvg
             poses={poses}
             cameraWidth={CAM_PREVIEW_WIDTH}
             cameraHeight={CAM_PREVIEW_HEIGHT}
