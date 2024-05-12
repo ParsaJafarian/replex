@@ -37,6 +37,7 @@ export default function PoseCamera() {
   const model = useRef(null);
   const cameraRef = useRef(null);
   const exerciseNameRef = useRef("Pushups");
+  const isFocusedRef = useRef(true);
 
   const exerciseContext = useContext(ExerciseContext);
   const [, setForceUpdate] = useState(false); // Add a state variable to force re-render
@@ -45,7 +46,6 @@ export default function PoseCamera() {
   let requestAnimationFrameId = 0;
   let frameCount = 0;
   const makePredictionsEveryNFrames = 1;
-
 
   // componentDidMount() {
   //   const { navigation } = this.props;
@@ -62,6 +62,12 @@ export default function PoseCamera() {
     console.log(exerciseContext.name);
     exerciseNameRef.current = findExercise(exerciseContext.id).name;
   }, [exerciseContext.id]);
+
+
+  useEffect(() => {
+    setForceUpdate((prev) => !prev); // Update the state variable to force re-render
+    isFocusedRef.current = isFocused;
+  }, [isFocused]);
 
   useEffect(() => {
     async function createPoseDetector() {
@@ -179,7 +185,7 @@ export default function PoseCamera() {
     } else if (isCurrentlyUp) {
       if (state.isDown) {
         state.count++;
-        exerciseContext.addRep();   
+        exerciseContext.addRep();
         console.log(`${state.exercise} count:`, state.count);
       }
       state.isDown = false;
@@ -190,12 +196,12 @@ export default function PoseCamera() {
     const loop = async () => {
       frameCount += 1;
       frameCount = frameCount % makePredictionsEveryNFrames;
-      if (!isFocused) {
+      if (!isFocusedRef.current) {
         return;
       }
       if (frameCount === 0) {
         const imageTensor = images.next().value;
-        if (model.current == null) {
+        if (!imageTensor || !model.current) {
           requestAnimationFrame(loop);
           return;
         }
@@ -237,7 +243,7 @@ export default function PoseCamera() {
         const angle = calculateAngles(aLoc, bLoc, cLoc);
         updateRepCount(angle);
       }
-      if (isFocused) {
+      if (isFocusedRef.current) {
         // updatePreview();
         // gl.endFrameEXP();
 
@@ -246,7 +252,8 @@ export default function PoseCamera() {
       }
     };
     try {
-      loop();
+      if (isFocused)
+        loop();
     } catch (error) {
       console.log("oh no");
     }
