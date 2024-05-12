@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { WorkoutContext } from "./workout-context";
 import { Alert } from "react-native";
+import findExercise from "../util/findExercise";
 
 export const ExerciseContext = createContext({
     id: '',

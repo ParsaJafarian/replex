@@ -5,6 +5,8 @@ import CameraFooter from './CameraFooter';
 import CameraHeader from './CameraHeader';
 import { ExerciseContext } from '../contexts/exercise-context';
 import { EXERCISES } from '../data/exercises';
+import '@tensorflow/tfjs-react-native';
+import PoseCamera from './ai/PoseCamera';
 
 export default function CameraCard() {
     const [type, setType] = useState(CameraType.back);
@@ -21,20 +23,10 @@ export default function CameraCard() {
         );
     }
 
-    function toggleCameraType() {
-        setType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
-    }
-
     return (
         <View style={styles.container}>
-            <CameraHeader />
-            <Camera style={styles.camera} type={type}>
-                <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
-                        <Text style={styles.text}>Flip Camera</Text>
-                    </TouchableOpacity>
-                </View>
-            </Camera>
+            <CameraHeader exerciseName={exercise.name} />
+            <PoseCamera type={type} />
             <CameraFooter exerciseName={exercise.name} />
         </View>
     );
