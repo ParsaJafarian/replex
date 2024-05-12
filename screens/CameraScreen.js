@@ -1,4 +1,4 @@
-import {  StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import CameraCard from "../components/CameraCard";
 import SearchBar from "../components/SearchBar";
 import ExerciseContextProvider from "../contexts/exercise-context";
