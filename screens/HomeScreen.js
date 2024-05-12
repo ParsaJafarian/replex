@@ -23,12 +23,12 @@ export default function HomeScreen() {
         <View style={styles.innerContainer}>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>WORKOUT IN CONFIDENCE WITH
-                    <Text style={{ color: welcomeColors.secondary, fontSize: 32 }}> REPCOUNT PRO</Text>
+                    <Text style={{ color: welcomeColors.secondary, fontSize: 32 }}> REPLEX</Text>
                 </Text>
             </View>
             <View style={styles.description}>
                 <Text style={{ color: welcomeColors.text, fontSize: 20 }}>
-                    Experience the power of computer vision and machine learning to track your workouts with RepCount Pro. Get started by creating your own workout and let RepCount Pro do the rest.
+                    Experience the power of computer vision and machine learning to track your workouts with RepLex. Get started by creating your own workout and let RepCount Pro do the rest.
                 </Text>
             </View>
         </View>
