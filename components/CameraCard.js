@@ -18,7 +18,7 @@ export default function CameraCard() {
     if (!exercise) {
         return (
             <View style={styles.container}>
-                <Text style={{ textAlign: 'center' }}>Please select an exercise</Text>
+                <Text style={{ textAlign: 'center' }}>Please select a workout</Text>
             </View>
         );
     }

@@ -38,6 +38,7 @@ export default function PoseCamera() {
   const cameraRef = useRef(null);
   const exerciseNameRef = useRef("Pushups");
   const isFocusedRef = useRef(true);
+  const counChangetRef = useRef(0);
 
   const exerciseContext = useContext(ExerciseContext);
   const [, setForceUpdate] = useState(false); // Add a state variable to force re-render
@@ -63,11 +64,15 @@ export default function PoseCamera() {
     exerciseNameRef.current = findExercise(exerciseContext.id).name;
   }, [exerciseContext.id]);
 
-
   useEffect(() => {
     setForceUpdate((prev) => !prev); // Update the state variable to force re-render
     isFocusedRef.current = isFocused;
   }, [isFocused]);
+
+  useEffect(() => {
+    setForceUpdate((prev) => !prev); // Update the state variable to force re-render
+    exerciseContext.doRep();
+  }, [counChangetRef.current]);
 
   useEffect(() => {
     async function createPoseDetector() {
@@ -163,7 +168,6 @@ export default function PoseCamera() {
   // Function to update the rep count
   function updateRepCount(angle) {
     if (angle == null) return;
-    // console.log(angle);
     // Get the current exercise configuration
     const currentExerciseConfig = exerciseConfigs[state.exercise];
 
@@ -185,7 +189,7 @@ export default function PoseCamera() {
     } else if (isCurrentlyUp) {
       if (state.isDown) {
         state.count++;
-        exerciseContext.addRep();
+        counChangetRef.current++;
         console.log(`${state.exercise} count:`, state.count);
       }
       state.isDown = false;
@@ -252,8 +256,7 @@ export default function PoseCamera() {
       }
     };
     try {
-      if (isFocused)
-        loop();
+      if (isFocused) loop();
     } catch (error) {
       console.log("oh no");
     }

@@ -9,6 +9,7 @@ import {
   Alert,
   TextInput,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { WorkoutContext } from "../contexts/workout-context";
@@ -165,16 +166,20 @@ export default function WorkoutScreen({ navigation }) {
             value={reps}
             onChangeText={setReps}
           />
-          <Button
-            title="Add set"
-            style={{
-              flex: 1,
-              borderRadius: 5,
-              paddingHorizontal: 10,
-              paddingVertical: 8,
-            }}
-            onPress={addSet}
-          />
+          <Pressable style={styles.button} onPress={addSet}>
+            <Text style={styles.text}>Add set</Text>
+            {/* <Button
+              title=
+              style={{
+                backgroundColor: "red",
+                flex: 1,
+                borderRadius: 5,
+                paddingHorizontal: 10,
+                paddingVertical: 8,
+              }}
+              onPress={addSet}
+            /> */}
+          </Pressable>
         </View>
         <Button title="Add exercise" style={styles.btn} onPress={addExercise} />
       </SafeAreaView>
@@ -212,6 +217,15 @@ export default function WorkoutScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  button: {
+    backgroundColor: "red",
+    margin: 14,
+    padding: 10,
+    borderRadius: 6,
+  },
+  text: {
+    color: "white",
+  },
   container: {
     paddingHorizontal: 40,
     paddingTop: 30,
