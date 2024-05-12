@@ -37,6 +37,7 @@ export default function SearchWorkout() {
 
         const firstEx = JSON.parse(item["exercises"])[0];
 
+        setFiltered([]);
         exerciseContext.setExerciseId(firstEx.id);
         exerciseContext.setSets(firstEx.sets);
 
