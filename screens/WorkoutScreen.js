@@ -62,8 +62,8 @@ export default function WorkoutScreen({ navigation }) {
             exercise: query,
             id,
             sets,
-        }
-        console.log(exercise)
+        };
+        console.log(exercise);
         // Reset fields after adding exercise
         setQuery('');
         setReps('');
@@ -100,6 +100,8 @@ export default function WorkoutScreen({ navigation }) {
                 console.log(JSON.stringify(workouts));
                 await AsyncStorage.setItem('workouts', JSON.stringify(workouts));
             }
+            
+            workoutContext.load();
         } catch (err) {
             alert(err);
         }

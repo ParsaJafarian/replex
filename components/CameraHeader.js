@@ -13,7 +13,7 @@ export default function CameraHeader({ exerciseName }) {
             {exerciseName}
         </Text>
         <Text style={styles.title}>
-            {workoutContext.workout.name}
+            {workoutContext.selectedWorkout.name}
         </Text>
         <AddExerciseButton />
     </View>

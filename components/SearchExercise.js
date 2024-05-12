@@ -38,7 +38,6 @@ export default function SearchExercise({ query, setQuery, setId }) {
     function setExercise(item) {
         setQuery(item.name);
         setId(item.id);
-        exerciseContext.setExerciseId(item.id);
     }
 
     return <View style={styles.container}>

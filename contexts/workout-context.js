@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const WorkoutContext = createContext({
+    load: () => { },
     workouts: [], // All workouts, loaded from memory
     selectedWorkout: {}, // Workout user has selected from SearchWorkout
     setSelectedWorkout: () => { }, // Setter for selected workout, used in SearchWorkout
@@ -56,6 +57,7 @@ export default function WorkoutContextProvider({ children }) {
     }, []);
 
     const value = {
+        load,
         workouts,
         selectedWorkout,
         setSelectedWorkout,
