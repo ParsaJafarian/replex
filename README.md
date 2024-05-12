@@ -1,4 +1,4 @@
-# rep-counter
+# RepLex
 
 ## How to start
 

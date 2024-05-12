@@ -38,21 +38,24 @@ export default function App() {
       <WorkoutContextProvider>
         <NavigationContainer>
           <Tab.Navigator screenOptions={defaultOptions}>
-            <Tab.Screen
-              name="Camera"
-              component={CameraScreen}
-              options={{
-                tabBarIcon: ({ color }) => (
-                  <Ionicons name="camera" size={30} color={color} />
-                ),
-              }}
-            />
+            <Tab.Screen name="Home" component={HomeScreen} options={{
+              tabBarIcon: ({ color }) => <Ionicons name="home" size={30} color={color} />,
+            }} />
             <Tab.Screen
               name="Workout"
               component={WorkoutScreen}
               options={{
                 tabBarIcon: ({ color }) => (
                   <Ionicons name="barbell" size={30} color={color} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Camera"
+              component={CameraScreen}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <Ionicons name="camera" size={30} color={color} />
                 ),
               }}
             />

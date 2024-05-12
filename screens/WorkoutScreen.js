@@ -6,7 +6,6 @@ import {
   View,
   StyleSheet,
   Button,
-  Alert,
   TextInput,
   TouchableOpacity,
   Pressable,
