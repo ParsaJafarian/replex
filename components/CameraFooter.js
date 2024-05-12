@@ -14,8 +14,9 @@ export default function CameraFooter({ exerciseName }) {
                 <ValueCard title="Sets" value={exerciseContext.numSets} />
             </View>
             <View style={styles.footer}>
-                <Button title="Reset" onPress={exerciseContext.resetExercise} />
                 <Button title="Add Rep" onPress={exerciseContext.addRep} />
+                <Button title="Reset" onPress={exerciseContext.resetExercise} />
+                {/* <Button title="Add Set" onPress={exerciseContext.addSet} /> */}
                 <Button title="Add Set" onPress={exerciseContext.addSet} />
             </View>
         </View>

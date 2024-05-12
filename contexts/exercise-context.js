@@ -7,6 +7,7 @@ export const ExerciseContext = createContext({
     sets: [],
     numSets: 1,
     numReps: 0,
+    setExerciseInd: () => { },
     setExerciseId: () => { },
     resetExercise: () => { },
     addSet: () => { },
@@ -15,10 +16,20 @@ export const ExerciseContext = createContext({
 
 export default function ExerciseContextProvider({ children }) {
     const [id, setId] = useState('');
+    const [exerciseIndex, setExerciseIndex] = useState(0); // Index of exercise within the selected workout 
     const [sets, setSets] = useState([]);
+    const [setsLeft, setSetsLeft] = useState([]);
     const [numSets, setNumSets] = useState(1);
     const [numReps, setNumReps] = useState(0);
     const workoutContext = useContext(WorkoutContext);
+
+    function setExerciseInd(num) {
+        setExerciseIndex(num); // Set index
+
+        console.log(JSON.parse(workoutContext.selectedWorkout.exercises)[num]);
+        setId(JSON.parse(workoutContext.selectedWorkout.exercises)[num].id); // Update ID to match the index
+        // setSetsLeft(JSON.parse(workoutContext.selectedWorkout.exercises));
+    }
 
     function setExerciseId(id) {
         setId(id);
@@ -59,6 +70,7 @@ export default function ExerciseContextProvider({ children }) {
         sets,
         numSets,
         numReps,
+        setExerciseInd,
         setExerciseId,
         resetExercise,
         addSet,
