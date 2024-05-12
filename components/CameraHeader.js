@@ -12,7 +12,6 @@ export default function CameraHeader() {
         <Text style={styles.title}>
             {workoutContext.selectedWorkout.name}
         </Text>
-        <AddExerciseButton />
     </View>
 };
 
