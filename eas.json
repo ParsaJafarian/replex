@@ -1,25 +1,12 @@
 {
-  "cli": {
-    "version": ">= 9.0.3"
-  },
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal",
-      "image": "latest"
+      "distribution": "internal"
     },
     "preview": {
-      "distribution": "internal",
-      "image":"latest"
+      "distribution": "internal"
     },
-    "production": {
-      "image": "latest"
-    }
-  },
-  "submit": {
-    "production": {
-      "distribution": "store",
-      "image": "latest"
-    }
+    "production": {}
   }
 }

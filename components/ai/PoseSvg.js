@@ -17,6 +17,8 @@ const adjacentKeyPoints = [
   ["right_knee", "right_ankle"],
 ];
 
+const facePointsNames = ["nose", "left_eye", "right_eye", "left_ear", "right_ear"];
+
 export default function PoseSvg({
   poses,
   cameraWidth = Dimensions.get("window").width,
@@ -40,7 +42,8 @@ export default function PoseSvg({
   function getKeyPointCircles() {
     const keypoints = poses[0].keypoints;
     const filteredKeypoints = keypoints.filter(crossesMinKeyPointScore);
-    const keypointCircles = filteredKeypoints.map((k) => {
+    const bodyKeypoints = filteredKeypoints.filter((k) => !facePointsNames.includes(k.name));
+    const keypointCircles = bodyKeypoints.map((k) => {
       const { x, y } = getCoordinates(k);
       return (
         <Circle
@@ -84,9 +87,7 @@ export default function PoseSvg({
 
   if (poses == null || poses.length === 0) {
     return (
-      <View style={styles.noPose}>
-        {/* <Text>No Pose detected</Text> */}
-      </View>
+      <View style={styles.noPose}>{/* <Text>No Pose detected</Text> */}</View>
     );
   }
 

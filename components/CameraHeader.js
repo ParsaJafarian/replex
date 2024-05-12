@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
 import colors from "../util/colors";
-import AddExerciseButton from "./AddExerciseButton";
 import { useContext } from "react";
 import { WorkoutContext } from "../contexts/workout-context";
 

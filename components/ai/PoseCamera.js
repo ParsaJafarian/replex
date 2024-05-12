@@ -14,13 +14,16 @@ const TensorCamera = cameraWithTensors(Camera);
 const AUTO_RENDER = true;
 
 const CAM_PREVIEW_WIDTH = roundNumber(Dimensions.get("window").width);
-const CAM_PREVIEW_HEIGHT = roundNumber(Dimensions.get("window").height * 0.65);
+const CAM_PREVIEW_HEIGHT = CAM_PREVIEW_WIDTH / (3 / 4);
+// const CAM_PREVIEW_HEIGHT = roundNumber(Dimensions.get("window").height * 0.65);
 
 const MIN_KEYPOINT_SCORE = 0.3;
-const OUTPUT_TENSOR_WIDTH = roundNumber(Dimensions.get("window").width);
-const OUTPUT_TENSOR_HEIGHT = roundNumber(
-  Dimensions.get("window").height * 0.65
-);
+const OUTPUT_TENSOR_WIDTH = 180;
+const OUTPUT_TENSOR_HEIGHT = OUTPUT_TENSOR_WIDTH / (3 / 4);
+// const OUTPUT_TENSOR_WIDTH = roundNumber(Dimensions.get("window").width);
+// const OUTPUT_TENSOR_HEIGHT = roundNumber(
+//   Dimensions.get("window").height * 0.65
+// );
 
 function roundNumber(n) {
   let x = 4;
@@ -79,8 +82,15 @@ export default function PoseCamera() {
       const modelName = poseDetection.SupportedModels.MoveNet;
       const detectorConfig = {
         modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING,
-        enableTracking: true,
+        enableTracking: false,
         trackerType: poseDetection.TrackerType.BoundingBox,
+        trackerConfig: {
+          // maxTracks:
+          // maxAge:
+          // minSimilarity:
+          // keypointTrackerParams?
+          // boundingBoxTrackerParams?
+        },
       };
       model.current = await poseDetection
         .createDetector(modelName, detectorConfig)
