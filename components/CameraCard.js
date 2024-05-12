@@ -5,8 +5,6 @@ import CameraFooter from './CameraFooter';
 import CameraHeader from './CameraHeader';
 import { ExerciseContext } from '../contexts/exercise-context';
 import { EXERCISES } from '../data/dummy-data';
-import * as tf from '@tensorflow/tfjs-core';
-import * as poseDetection from '@tensorflow-models/pose-detection';
 import '@tensorflow/tfjs-react-native';
 import PoseCamera from './ai/PoseCamera';
 
