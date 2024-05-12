@@ -15,7 +15,6 @@ export const WorkoutContext = createContext({
     updateExercise: () => { },
     resetWorkout: () => { },
     removeExercise: () => { },
-    updateStatus: () => { }
 })
 
 export default function WorkoutContextProvider({ children }) {
@@ -24,21 +23,6 @@ export default function WorkoutContextProvider({ children }) {
     const [workout, setWorkout] = useState([]);
     const [exerciseIdx, setExerciseIdx] = useState(0); // Index of exercise within the selected workout 
     const exerciseContext = useContext(ExerciseContext);
-
-    function updateStatus() {
-        const listOfEx = JSON.parse(selectedWorkout["exercises"]);
-        if (exerciseIdx + 1 >= listOfEx.length) {
-            console.log("WORKOUT COMPLETED, WOW!");
-        } else {
-            console.log(selectedWorkout);
-            
-            const nextEx = listOfEx[exerciseIdx + 1];
-            console.log(nextEx)
-            exerciseContext.setExerciseId(nextEx.id);
-            exerciseContext.setSets(nextEx.sets);
-            setExerciseIdx(prev=>prev + 1);
-        }
-    }
 
     function addExercise(exercise) {
         setWorkout([...workout, exercise]);
@@ -89,7 +73,6 @@ export default function WorkoutContextProvider({ children }) {
         updateExercise,
         resetWorkout,
         removeExercise,
-        updateStatus
     };
 
     return <WorkoutContext.Provider value={value}>
