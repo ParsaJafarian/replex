@@ -27,7 +27,7 @@ export default function CameraCard() {
         <View style={styles.container}>
             <CameraHeader exerciseName={exercise.name} />
             <PoseCamera type={type} />
-            <CameraFooter />
+            <CameraFooter exerciseName={exercise.name} />
         </View>
     );
 };

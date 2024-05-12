@@ -5,10 +5,10 @@ import { useContext, useState } from "react";
 import { ExerciseContext } from "../contexts/exercise-context";
 import { WorkoutContext } from "../contexts/workout-context";
 
-export default function SearchExercise({ query, setQuery }) {
+export default function SearchExercise({ query, setQuery, setId }) {
     const exerciseContext = useContext(ExerciseContext);
     const workoutContext = useContext(WorkoutContext);
-    const [exercises, setExercises] = useState([]); // [EXERCISES
+    const [exercises, setExercises] = useState([]); // EXERCISES
 
     const workout = workoutContext.workout;
     const exerciseInWorkout = (exercise) => workout.some(item => item.id === exercise.id);
@@ -37,7 +37,7 @@ export default function SearchExercise({ query, setQuery }) {
 
     function setExercise(item) {
         setQuery(item.name);
-        exerciseContext.setExerciseId(item.id);
+        setId(item.id);
     }
 
     return <View style={styles.container}>

@@ -1,11 +1,16 @@
 import { View, Text, StyleSheet } from "react-native";
 import colors from "../util/colors";
 import AddExerciseButton from "./AddExerciseButton";
+import { useContext } from "react";
+import { WorkoutContext } from "../contexts/workout-context";
 
-export default function CameraHeader({ exerciseName }) {
+export default function CameraHeader() {
+
+    const workoutContext = useContext(WorkoutContext);
+
     return <View style={styles.container}>
         <Text style={styles.title}>
-            {exerciseName}
+            {workoutContext.selectedWorkout.name}
         </Text>
     </View>
 };
