@@ -1,7 +1,8 @@
 import { useContext, useLayoutEffect } from "react";
-import { FlatList, Text, View, StyleSheet, Button } from "react-native";
+import { FlatList, Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { WorkoutContext } from "../contexts/workout-context";
 import { ExerciseContext } from "../contexts/exercise-context";
+import { Ionicons } from '@expo/vector-icons'; // Ensure you have this import if you use icons
 import ShareButton from "../components/ShareButton";
 
 export default function WorkoutScreen({ navigation }) {
@@ -25,38 +26,85 @@ export default function WorkoutScreen({ navigation }) {
     }
 
     function renderExerciseItem({ item }) {
-        return <View style={styles.excercise}>
-            <Text>{item.name}</Text>
-            {item.sets.map((set, index) => {
-                return <Text key={index}>{set}</Text>
-            })}
-            <Button
-                title="Remove"
-                onPress={() => removeExerciseHandler(item.id)}
-                style={styles.removeButton}
-            />
-        </View>
+        return (
+            <View style={styles.excercise}>
+                <View style={styles.exerciseInfo}>
+                    <Text style={styles.exerciseName}>{item.name}</Text>
+                    <View style={styles.setsContainer}>
+                        <Text style={styles.setsTitle}>Sets:</Text>
+                        {item.sets.map((set, index) => (
+                            <View key={index} style={{ flexDirection: 'row' }}>
+                                <Text style={styles.setsText}>
+                                    {set}
+                                </Text>
+                                <Text style={styles.setsText}>
+                                    {index < item.sets.length - 1 ? ' - ' : ''}
+                                </Text>
+                            </View>
+
+                        ))}
+                    </View>
+                </View>
+                <TouchableOpacity style={styles.removeButton} onPress={() => removeExerciseHandler(item.id)}>
+                    <Ionicons name="remove-circle" size={24} color="white" />
+                </TouchableOpacity>
+            </View>
+        );
     }
 
-    return <View>
-        <FlatList
-            data={workout}
-            keyExtractor={(item) => item.id}
-            renderItem={renderExerciseItem}
-        />
-    </View>
+    return (
+        <View style={styles.container}>
+            <FlatList
+                data={workout}
+                keyExtractor={(item) => item.id}
+                renderItem={renderExerciseItem}
+            />
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#f0f0f0', // Light grey background
+    },
     excercise: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: 10,
-        borderBottomColor: 'black',
+        borderBottomColor: '#ccc',
         borderBottomWidth: 1,
+        backgroundColor: 'white',
+    },
+    exerciseInfo: {
+        flex: 1,
+    },
+    exerciseName: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#333',
+        textDecorationLine: 'underline',
+        textDecorationStyle: 'solid',
+    },
+    setsContainer: {
+        flexDirection: 'row',
+        marginTop: 5,
+    },
+    setsText: {
+        color: '#666',
+    },
+    setsTitle: {
+        fontSize: 14,
+        marginRight: 10,
+        fontWeight: 'bold',
+        color: '#333',
     },
     removeButton: {
-        backgroundColor: 'red',
-    }
+        padding: 6,
+        backgroundColor: '#ff6347', // Tomato color
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 })
