@@ -3,7 +3,7 @@ import colors from "../util/colors";
 import { useContext } from "react";
 import { ExerciseContext } from "../contexts/exercise-context";
 import { WorkoutContext } from "../contexts/workout-context";
-import { EXERCISES } from "../data/dummy-data";
+import { EXERCISES } from "../data/exercises";
 
 export default function AddExerciseButton() {
     const exerciseContext = useContext(ExerciseContext);

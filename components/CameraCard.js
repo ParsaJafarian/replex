@@ -4,7 +4,7 @@ import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CameraFooter from './CameraFooter';
 import CameraHeader from './CameraHeader';
 import { ExerciseContext } from '../contexts/exercise-context';
-import { EXERCISES } from '../data/dummy-data';
+import { EXERCISES } from '../data/exercises';
 import '@tensorflow/tfjs-react-native';
 import PoseCamera from './ai/PoseCamera';
 
