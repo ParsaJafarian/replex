@@ -3,7 +3,7 @@ import { Camera, CameraType } from "expo-camera";
 import * as tf from "@tensorflow/tfjs-core";
 import * as poseDetection from "@tensorflow-models/pose-detection";
 import { useContext, useEffect, useRef, useState } from "react";
-import { StyleSheet, View, Text, Dimensions } from "react-native";
+import { StyleSheet, View, Text, Dimensions, Button } from "react-native";
 import PoseSvg from "./PoseSvg";
 import { ExerciseContext } from "../../contexts/exercise-context";
 import findExercise from "../../util/findExercise";

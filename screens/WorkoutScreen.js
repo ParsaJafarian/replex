@@ -17,6 +17,12 @@ import { ExerciseContext } from "../contexts/exercise-context";
 import uuid from "react-native-uuid";
 import ShareButton from "../components/ShareButton";
 import SearchExercise from "../components/SearchExercise";
+import {
+  ALERT_TYPE,
+  Dialog,
+  AlertNotificationRoot,
+  Toast,
+} from "react-native-alert-notification";
 
 export default function WorkoutScreen({ navigation }) {
   const workoutContext = useContext(WorkoutContext);
@@ -48,6 +54,11 @@ export default function WorkoutScreen({ navigation }) {
   }
 
   function addSet() {
+    Toast.show({
+        type: ALERT_TYPE.SUCCESS,
+        title: "Success",
+        textBody: "Successfully added a set of " + reps + " reps",
+      });
     setSets([...sets, Number.parseInt(reps)]);
   }
 
@@ -95,6 +106,13 @@ export default function WorkoutScreen({ navigation }) {
         await AsyncStorage.setItem("workouts", JSON.stringify(workouts));
       }
 
+      // alert("Successfully created workout " + workoutName)
+      Dialog.show({
+        type: ALERT_TYPE.SUCCESS,
+        title: 'Success',
+        textBody: 'Successfully created workout ' + workoutName,
+        button: 'close',
+      })
       workoutContext.load();
     } catch (err) {
       alert(err);
@@ -104,6 +122,7 @@ export default function WorkoutScreen({ navigation }) {
   const clearWorkouts = async () => {
     try {
       await AsyncStorage.removeItem("workouts");
+      workoutContext.load();
     } catch (e) {
       alert(e);
     }
@@ -125,114 +144,142 @@ export default function WorkoutScreen({ navigation }) {
     );
   }
 
-  return creating ? (
-    <View style={styles.container}>
-      <Pressable
-        style={{
-          width: "100%",
-          backgroundColor: "#775FF0",
-          paddingVertical: 15,
-          paddingHorizontal: 22,
-          borderRadius: 7,
-        }}
-        onPress={() => setCreating(creating === false ? true : false)}
-      >
-        <Text
-          style={{ fontWeight: "bold", color: "white", textAlign: "center" }}
-        >
-          BACK
-        </Text>
-      </Pressable>
-      <SafeAreaView style={{ margin: 0, padding: 0, width: "100%" }}>
-        <TextInput
-          style={[styles.input, styles.marginThing]}
-          placeholder="Type workout name here..."
-          placeholderTextColor={"white"}
-          value={workoutName}
-          onChangeText={setWorkoutName}
-        />
-        <SearchExercise query={query} setQuery={setQuery} setId={setId} />
-        <View style={[styles.inputContainer]}>
-          <TextInput
-            style={styles.halfInput}
-            placeholder="Repetitions per set"
-            placeholderTextColor={"white"}
-            keyboardType="numeric"
-            value={reps}
-            onChangeText={setReps}
-          />
-          <Pressable
-            style={[
-              styles.button,
-              styles.buttonBetween,
-              { marginVertical: 8, marginLeft: 8 },
-            ]}
-            onPress={addSet}
-          >
-            <Text
-              style={[
-                styles.buttonText,
-                styles.buttonTextBetween,
-                { textAlign: "center", width: 30 },
-              ]}
-            >
-              +
-            </Text>
-          </Pressable>
+  return (
+    <>
+      <AlertNotificationRoot>
+        <View>
+          {creating ? (
+            <View style={styles.container}>
+              <Pressable
+                style={{
+                  width: "100%",
+                  backgroundColor: "#775FF0",
+                  paddingVertical: 15,
+                  paddingHorizontal: 22,
+                  borderRadius: 7,
+                }}
+                onPress={() => setCreating(creating === false ? true : false)}
+              >
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    color: "white",
+                    textAlign: "center",
+                  }}
+                >
+                  BACK
+                </Text>
+              </Pressable>
+              <SafeAreaView style={{ margin: 0, padding: 0, width: "100%" }}>
+                <TextInput
+                  style={[styles.input, styles.marginThing]}
+                  placeholder="Type workout name here..."
+                  placeholderTextColor={"white"}
+                  value={workoutName}
+                  onChangeText={setWorkoutName}
+                />
+                <SearchExercise
+                  query={query}
+                  setQuery={setQuery}
+                  setId={setId}
+                />
+                <View style={[styles.inputContainer]}>
+                  <TextInput
+                    style={styles.halfInput}
+                    placeholder="Repetitions per set"
+                    placeholderTextColor={"white"}
+                    keyboardType="numeric"
+                    value={reps}
+                    onChangeText={setReps}
+                  />
+                  <Pressable
+                    style={[
+                      styles.button,
+                      styles.buttonBetween,
+                      { marginVertical: 8, marginLeft: 8 },
+                    ]}
+                    onPress={addSet}
+                  >
+                    <Text
+                      style={[
+                        styles.buttonText,
+                        styles.buttonTextBetween,
+                        { textAlign: "center", width: 30 },
+                      ]}
+                    >
+                      +
+                    </Text>
+                  </Pressable>
+                </View>
+                <Pressable
+                  style={[
+                    styles.button,
+                    styles.buttonBetween,
+                    styles.marginThing,
+                  ]}
+                  onPress={addExercise}
+                >
+                  <Text style={[styles.buttonText, styles.buttonTextBetween]}>
+                    Add exercise
+                  </Text>
+                </Pressable>
+                <Pressable
+                  style={[
+                    styles.button,
+                    styles.buttonFilled,
+                    styles.marginThing,
+                  ]}
+                  onPress={saveWorkout}
+                >
+                  <Text style={[styles.buttonText, styles.buttonTextFilled]}>
+                    Create workout
+                  </Text>
+                </Pressable>
+                <Pressable
+                  style={[
+                    styles.button,
+                    styles.buttonOutline,
+                    styles.marginThing,
+                  ]}
+                  onPress={clearWorkouts}
+                >
+                  <Text style={[styles.buttonText, styles.buttonTextOutline]}>
+                    Delete all workouts
+                  </Text>
+                </Pressable>
+              </SafeAreaView>
+            </View>
+          ) : (
+            <View style={styles.container}>
+              <Pressable
+                style={{
+                  width: "100%",
+                  backgroundColor: colors.purple,
+                  paddingVertical: 15,
+                  paddingHorizontal: 22,
+                  position: "absolute",
+                  bottom: 35,
+                  left: "13%",
+                  borderRadius: 7,
+                  zIndex: 5,
+                }}
+                onPress={() => setCreating(creating === false ? true : false)}
+              >
+                <Text style={{ fontWeight: "bold", color: "white" }}>
+                  Create workout
+                </Text>
+              </Pressable>
+              <Text style={styles.text}>Workouts</Text>
+              <FlatList
+                data={workoutContext.workouts}
+                keyExtractor={(item) => item.id}
+                renderItem={renderWorkoutItem}
+              />
+            </View>
+          )}
         </View>
-        <Pressable
-          style={[styles.button, styles.buttonBetween, styles.marginThing]}
-          onPress={addExercise}
-        >
-          <Text style={[styles.buttonText, styles.buttonTextBetween]}>
-            Add exercise
-          </Text>
-        </Pressable>
-        <Pressable
-          style={[styles.button, styles.buttonFilled, styles.marginThing]}
-          onPress={saveWorkout}
-        >
-          <Text style={[styles.buttonText, styles.buttonTextFilled]}>
-            Create workout
-          </Text>
-        </Pressable>
-        <Pressable
-          style={[styles.button, styles.buttonOutline, styles.marginThing]}
-          onPress={clearWorkouts}
-        >
-          <Text style={[styles.buttonText, styles.buttonTextOutline]}>
-            Delete all workouts
-          </Text>
-        </Pressable>
-      </SafeAreaView>
-    </View>
-  ) : (
-    <View style={styles.container}>
-      <Pressable
-        style={{
-          width: "100%",
-          backgroundColor: colors.purple,
-          paddingVertical: 15,
-          paddingHorizontal: 22,
-          position: "absolute",
-          bottom: 35,
-          left: "13%",
-          borderRadius: 7,
-          zIndex: 5,
-        }}
-        onPress={() => setCreating(creating === false ? true : false)}
-      >
-        <Text style={{ fontWeight: "bold", color: "white" }}>
-          Create workout
-        </Text>
-      </Pressable>
-      <Text style={styles.text}>Workouts</Text>
-      <FlatList
-        data={workoutContext.workouts}
-        keyExtractor={(item) => item.id}
-        renderItem={renderWorkoutItem}
-      />
-    </View>
+      </AlertNotificationRoot>
+    </>
   );
 }
 
@@ -310,6 +357,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 8,
+    color: "white",
   },
   inputContainer: {
     marginTop: 80,
@@ -323,5 +371,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 8,
+    color: "white",
   },
 });

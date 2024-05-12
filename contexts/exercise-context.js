@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { WorkoutContext } from "./workout-context";
 import { Alert } from "react-native";
 import findExercise from "../util/findExercise";
+import { Dialog, ALERT_TYPE } from "react-native-alert-notification";
 
 export const ExerciseContext = createContext({
   id: "",
@@ -81,7 +82,12 @@ export default function ExerciseContextProvider({ children }) {
         if (workoutContext.exerciseIdx + 1 >= listOfEx.length) {
           // console.log("WORKOUT COMPLETED, WOW!");
           setId("");
-          alert("You completed your workout!");
+          Dialog.show({
+            type: ALERT_TYPE.SUCCESS,
+            title: 'Success',
+            textBody: 'You completed your workout!',
+            button: 'close',
+          })
         } else {
           console.log(workoutContext.selectedWorkout);
           console.log(workoutContext.exerciseIdx + 1);

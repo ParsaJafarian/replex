@@ -7,6 +7,7 @@ import WorkoutScreen from "./screens/WorkoutScreen";
 import WorkoutContextProvider from "./contexts/workout-context";
 import colors from "./util/colors";
 import { Ionicons } from "@expo/vector-icons";
+import { AlertNotificationRoot } from "react-native-alert-notification";
 
 const Tab = createBottomTabNavigator();
 
@@ -32,6 +33,7 @@ const defaultOptions = {
 export default function App() {
   return (
     <>
+    <AlertNotificationRoot>
       <StatusBar style="light" />
       <WorkoutContextProvider>
         <NavigationContainer>
@@ -57,6 +59,7 @@ export default function App() {
           </Tab.Navigator>
         </NavigationContainer>
       </WorkoutContextProvider>
+    </AlertNotificationRoot>
     </>
   );
 }
