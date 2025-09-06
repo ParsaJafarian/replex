@@ -10,8 +10,8 @@ A mobile fitness application that uses real-time pose estimation with TensorFlow
 
 [DEVPOST - JACHacks 1st Place Overall Winner!](https://devpost.com/software/replex)
 
-![](./assets/original.PNG)
-![](./assets/original1.PNG)
+![](https://raw.githubusercontent.com/ParsaJafarian/replex/refs/heads/main/assets/original.PNG)
+![](https://raw.githubusercontent.com/ParsaJafarian/replex/refs/heads/main/assets/original1.PNG)
 
 ---
 
